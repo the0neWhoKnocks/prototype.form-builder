@@ -2,13 +2,14 @@
 
 ## Server
 
-- [ ] Spin up a server to house the GUI & handle the service that'll return the
+- [X] Spin up a server to house the GUI & handle the service that'll return the
 rendered markup.
+- [ ] Look into BrowserSync for live reload https://www.browsersync.io/docs/gulp/.
 
 
 ## GUI
 
-- [ ] Loads form components from a folder.
+- [X] Loads form components from a folder.
 - [ ] Set up a 2 column shell. Left column holds the components, right column is
 the drop-zone.
    - [ ] When components are dragged from the left to right, it'll start 
