@@ -5,6 +5,7 @@ var expHbs = require('express-handlebars');
 var riot = require('riot');
 var color = require('cli-color');
 var exec = require('child_process').exec;
+var opn = require('opn');
 var app = express();
 var conf = {
   PORT: 8080,
@@ -17,7 +18,23 @@ conf.paths.VIEWS = conf.paths.PUBLIC+'/views';
 conf.paths.TAGS = conf.paths.PUBLIC+'/tags';
 conf.paths.JS = conf.paths.PUBLIC+'/js';
 conf.paths.FORM_ITEMS = conf.paths.TAGS+'/formItems';
+var OS = function(){
+  var platform = process.platform;
+  
+  if( /^win/.test(platform) ) return 'WINDOWS';
+  else if( /^darwin/.test(platform) ) return 'OSX';
+  else if( /^linux/.test(platform) ) return 'LINUX';
+  else return platform;
+}();
+var CHROME = function(){
+  switch(OS){
+    case 'WINDOWS': return 'chrome';
+    case 'OSX': return 'google chrome';
+    case 'LINUX': return 'google-chrome';
+  }
+}();
 var formItems = require(conf.paths.TAGS+'/formItems.tag');
+var formBuilder = require(conf.paths.TAGS+'/formBuilder.tag');
 
 
 // set up server templating engine
@@ -79,6 +96,7 @@ app.get('/', function(req, res){
   // Have to double up here to achieve server-side renders & client-side bindings.
   res.render('admin', {
     formItems: riot.render(formItems, model),
+    formBuilder: riot.render(formBuilder, model),
     model: JSON.stringify(model)
   });
 });
@@ -105,10 +123,15 @@ app.listen(conf.PORT, function(){
     
     // copy over any assets needed by the frontend
     copyFiles([
-      conf.paths.NODE_MODULES +'/riot/riot.min.js'
+      conf.paths.NODE_MODULES +'/riot/riot.min.js',
+      conf.paths.NODE_MODULES +'/riot/riot+compiler.min.js'
     ], function(){
+      var url = 'http://localhost:'+ conf.PORT +'/';
+      
       // let the user know the server is up and ready
-      console.log("\n "+ color.green.bold('[SERVER]') +" Running at http://localhost:"+ conf.PORT +"/\n");
+      console.log("\n "+ color.green.bold('[SERVER]') +" Running at "+ url +"\n");
+      
+      opn(url, {app: [CHROME, '--incognito']});
     });
   });
 });

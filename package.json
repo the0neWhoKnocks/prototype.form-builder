@@ -6,6 +6,7 @@
   "dependencies": {
     "express": "^4.13.4",
     "express-handlebars": "^3.0.0",
+    "opn": "^4.0.1",
     "riot": "^2.3.18"
   },
   "devDependencies": {

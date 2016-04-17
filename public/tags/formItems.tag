@@ -1,15 +1,20 @@
 <formItems>
-  <button 
+  <div 
     each={ item in opts.formItems }
     class="item"
     type="{ item.type }" 
-    onmousedown={ startDrag }
-  >{ item.label }</button>
+    data-type="{ item.type }" 
+    draggable="true"
+    ondragstart={ handleDragStart }
+    ondragend={ handleDragEnd }
+  >{ item.label }</div>
   
   <style scoped>
     :scope {
       width: 300px;
       display: inline-block;
+      vertical-align: top;
+      box-sizing: border-box;
     }
     
     .item {
@@ -18,20 +23,46 @@
       font-weight: bold;
       text-transform: uppercase;
       padding: 1em;
+      border: solid 1px #aaa;
+      border-radius: 0.25em;
       display: block;
+      background: #eee;
       cursor: -webkit-grab;
       cursor: grab;
+      box-sizing: border-box;
+      
+      // Prevent the text contents of draggable elements from being selectable.
+      -moz-user-select: none;
+      -khtml-user-select: none;
+      -webkit-user-select: none;
+      user-select: none;
+      // Required to make elements draggable in old WebKit
+      -khtml-user-drag: element;
+      -webkit-user-drag: element;
     }
     
-    .item:active {
-      cursor: -webkit-grabbing;
-      cursor: grabbing;
+    .item.is--current {
+      background-color: #c2f3f7;
+      //cursor: -webkit-grabbing;
+      //cursor: grabbing;
     }
   </style>
   
   <script>
-    startDrag(ev){
-      console.log('Start dragging item', ev.item.item.type);
+    this.handleDragStart = function(ev){
+      var el = ev.target;
+      
+      el.classList.add('is--current');
+      ev.dataTransfer.setData('text/plain', JSON.stringify(el.dataset));
+      
+      return true;
     }
+    
+    this.handleDragEnd = function(ev){
+      var el = ev.target;
+      
+      el.classList.remove('is--current');
+    }
+
   </script>
 </formItems>
