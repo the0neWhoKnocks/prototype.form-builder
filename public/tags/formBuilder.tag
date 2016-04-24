@@ -16,7 +16,7 @@
   >
     <ul class="list">
       <li each={ item in items }>
-        <dynamic ctx="{ item }" />
+        <form-item ctx="{ item }" />
       </li>
     </ul>
   </div>

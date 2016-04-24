@@ -29,5 +29,18 @@
     };
     this.label = opts.label || 'Default:';
     this.layout = opts.layout || this.layouts.LEFT;
+    
+    this.setLabel = function(){
+      var text = prompt("Enter label text", this.label);
+
+      if( text ){
+        this.label = text;
+        this.update();
+      }
+    };
+    
+    this.configurable = {
+      "Change Label": this.setLabel.bind(this)
+    };
   </script>
 </label-item>
