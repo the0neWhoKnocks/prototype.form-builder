@@ -7,7 +7,16 @@ form will be saved in JSON format to allow for loading/editing/saving.
 ## Installation
 
 ```
-npm i -dd -g riot
+npm i -dd -g riot gulp
 npm i -dd
-node app
+```
+
+## Start App
+
+```
+// for prod
+npm run app
+
+// for dev
+gulp app
 ```

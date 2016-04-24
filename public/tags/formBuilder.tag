@@ -2,6 +2,7 @@
   <nav
     class="top-nav"
   >
+    <button>Clear</button>
     <button>Load</button>
     <button>Save</button>
   </nav>
@@ -13,8 +14,10 @@
     ondragleave={ handleDragLeave }
     ondrop={ handleDrop }
   >
-    <ul>
-      <li each={ item in items }>{ item.type }</li>
+    <ul class="list">
+      <li each={ item in items }>
+        <dynamic ctx="{ item }" />
+      </li>
     </ul>
   </div>
   
@@ -27,6 +30,10 @@
       vertical-align: top;
     }
     
+    button {
+      cursor: pointer;
+    }
+    
     .top-nav {
       width: 100%;
       height: 2.3em;
@@ -37,6 +44,7 @@
     
     .dropzone {
       height: calc(99% - 2.75em);
+      padding: 0.5em;
       border: dashed 1px #aaa;
       margin-top: 0.5em;
       background: #eee;
@@ -60,6 +68,12 @@
     
     .dropzone.has--items::after {
       content: none;
+    }
+    
+    .list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
     }
   </style>
   
@@ -89,6 +103,7 @@
     this.handleDrop = function(ev){
       var el = ev.target;
       var itemData = JSON.parse(ev.dataTransfer.getData('text/plain'));
+      itemData.tag = itemData.itemType +'-item';
       
       el.classList.remove('drop-it');
       

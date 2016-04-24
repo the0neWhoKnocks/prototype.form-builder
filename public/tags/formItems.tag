@@ -1,9 +1,8 @@
 <formItems>
   <div 
     each={ item in opts.formItems }
-    class="item"
-    type="{ item.type }" 
-    data-type="{ item.type }" 
+    class="item" 
+    data-item-type="{ item.type }" 
     draggable="true"
     ondragstart={ handleDragStart }
     ondragend={ handleDragEnd }

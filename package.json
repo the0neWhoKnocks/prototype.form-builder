@@ -10,10 +10,14 @@
     "riot": "^2.3.18"
   },
   "devDependencies": {
+    "browser-sync": "^2.12.3",
     "cli-color": "^1.1.0",
-    "fs-extra": "^0.26.7"
+    "fs-extra": "^0.26.7",
+    "gulp": "^3.9.1",
+    "gulp-watch": "^4.3.5"
   },
   "scripts": {
+    "app": "node app init",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

@@ -1,4 +1,4 @@
-<selectItem>
+<select-item>
   <select>
     <!-- 
       account for optgroup
@@ -6,6 +6,6 @@
         <option value="{{value}}">{{label}}</option>
       </optgroup>
     --> 
-    <option each={{options}} value="{{value}}">{{label}}</option>
+    <option each={ opts.options } value="{ value }">{ label }</option>
   </select>
-</selectItem>
+</select-item>
