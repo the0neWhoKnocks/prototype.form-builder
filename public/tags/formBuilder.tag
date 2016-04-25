@@ -78,6 +78,8 @@
   </style>
   
   <script>
+    var _self = this;
+    
     this.items = [];
     
     this.handleDragEnter = function(ev){
@@ -86,11 +88,11 @@
       el.classList.add('drop-it');
       
       return true;
-    }
+    };
     
     this.handleDragOver = function(ev){
       ev.dataTransfer.dropEffect = 'move';  // See the section on the DataTransfer object.
-    }
+    };
 
     this.handleDragLeave = function(ev){
       var el = ev.target;
@@ -98,7 +100,7 @@
       el.classList.remove('drop-it');  // this / e.target is previous target element.
       
       return true;
-    }
+    };
     
     this.handleDrop = function(ev){
       var el = ev.target;
@@ -108,6 +110,6 @@
       el.classList.remove('drop-it');
       
       this.items.push(itemData);
-    }
+    };
   </script>
 </formBuilder>

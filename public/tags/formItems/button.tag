@@ -17,17 +17,20 @@
     this.type = opts.type || this.types.BUTTON;
     this.label = opts.label || 'CTA';
     
-    this.setBtnText = function(){
-      var text = prompt("Enter button text", this.label);
-
-      if( text ){
-        this.label = text;
+    this.setBtnText = function(data){
+      if( data ){
+        this.label = data.label;
         this.update();
       }
     };
     
     this.configurable = {
-      "Change Text": this.setBtnText.bind(this)
+      "Change Text": {
+        type: 'text',
+        name: 'label',
+        val: this.label,
+        fn: this.setBtnText.bind(this)
+      }
     };
   </script>
 </button-item>

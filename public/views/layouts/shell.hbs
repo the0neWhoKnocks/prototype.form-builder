@@ -21,6 +21,13 @@
   </style>
   <script src="/js/riot.min.js"></script>
   <!--<script src="/js/riot+compiler.min.js"></script>-->
+  <script src="/js/riotcontrol.js"></script>
+  <script src="/js/RiotStore.js"></script>
+  <script>
+    var riotStore = new RiotStore();
+    RiotControl.addStore(riotStore);
+    // mounting is handled in the main views
+  </script>
   <script src="/js/tags.js"></script>
 </head>
 <body>

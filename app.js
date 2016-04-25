@@ -5,7 +5,6 @@ var expHbs = require('express-handlebars');
 var riot = require('riot');
 var color = require('cli-color');
 var exec = require('child_process').exec;
-var opn = require('opn');
 var conf = {
   PORT: 8080,
   paths: {
@@ -137,18 +136,13 @@ var app = {
         // copy over any assets needed by the frontend
         _self.util.copyFiles.call(_self, [
           conf.paths.NODE_MODULES +'/riot/riot.min.js',
-          conf.paths.NODE_MODULES +'/riot/riot+compiler.min.js'
+          conf.paths.NODE_MODULES +'/riot/riot+compiler.min.js',
+          conf.paths.NODE_MODULES +'/riotcontrol/riotcontrol.js'
         ], function(){
           var url = 'http://localhost:'+ conf.PORT +'/';
           
           // let the user know the server is up and ready
           console.log("\n "+ color.green.bold('[SERVER]') +" Running at "+ url +"\n");
-          
-          /* BrowserSync handles opening now
-          opn(url, {
-            app: [CHROME]
-          });
-          */
           
           callback({
             url: url,
