@@ -88,12 +88,21 @@
   <script>
     var _self = this;
     
+    /*
+     * As a note, `items` doesn't keep track of item order after
+     * sorting has occurred. For now it's just a mechanism to update
+     * the DOM.
+     */
     this.items = [];
+    this.itemCount = 0;
     
     this.handleDragEnter = function(ev){
       var el = ev.target;
       
-      el.classList.add('drop-it');
+      // only highlight when adding an item
+      if( ev.dataTransfer.effectAllowed != 'move' ){
+        el.classList.add('drop-it');
+      }
       
       return true;
     };
@@ -112,16 +121,31 @@
     
     this.handleDrop = function(ev){
       var el = ev.target;
-      var itemData = JSON.parse(ev.dataTransfer.getData('text/plain'));
-      itemData.tag = itemData.itemType +'-item';
+      var itemData = ev.dataTransfer.getData('text/plain');
       
       el.classList.remove('drop-it');
       
-      this.items.push(itemData);
+      // Sorting triggers this, so verify the data is JSON
+      // before trying to parse.
+      if( /^\{/.test(itemData) ){
+        itemData = JSON.parse(itemData);
+        itemData.tag = itemData.itemType +'-item';
+        this.items.push(itemData);
+      }
     };
     
     this.clearFormItems = function(ev){
       this.items = [];
     };
+    
+    this.on('updated', function(ev){
+      if( 
+        _self.items.length 
+        && _self.itemCount != _self.items.length
+      ){
+        RiotControl.trigger('formItemAdded', _self.items[_self.itemCount]);
+        _self.itemCount = _self.items.length;
+      }
+    });
   </script>
 </formBuilder>

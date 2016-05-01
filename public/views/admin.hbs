@@ -3,4 +3,30 @@
 <context-menu></context-menu>
 <config-modal></config-modal>
 
+<script src="/js/Sortable.min.js"></script>
 <script>riot.mount('*', {{{model}}})</script>
+<script>
+  var dropZone = document.querySelector('.dropzone');
+  
+  var sortOpts = {
+    group: 'builder',
+    pull: true,
+    put: true,
+    animation: 150, // ms, animation speed moving items when sorting, `0` — without animation
+    //handle: ".tile__title", // Restricts sort start click/touch to the specified element
+    draggable: 'form-item', // Specifies which items inside the element should be sortable
+    onUpdate: function (ev){
+      //var item = ev.item; // the current dragged HTMLElement
+    }
+  };
+  var sortDZ = Sortable.create(dropZone, sortOpts);
+  
+  RiotControl.on('formItemAdded', function(data){
+    if( data.itemType == 'container' ){
+      var containers = document.querySelectorAll('form-item[riot-tag="container-item"] .container');
+      containers.forEach(function(el){
+        Sortable.create(el, sortOpts);
+      });
+    }
+  });
+</script>
