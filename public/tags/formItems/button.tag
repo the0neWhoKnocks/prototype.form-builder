@@ -10,6 +10,8 @@
   </style>
   
   <script>
+    var _self = this;
+    
     this.types = {
       BUTTON: 'button',
       SUBMIT: 'submit'
@@ -19,16 +21,20 @@
     
     this.setBtnText = function(data){
       if( data ){
-        this.label = data.label;
-        this.update();
+        _self.label = data.label;
+        _self.update();
       }
+    };
+    
+    this.getBtnText = function(){
+      return _self.label;
     };
     
     this.configurable = {
       "Change Text": {
         type: 'text',
         name: 'label',
-        val: this.label,
+        val: this.getBtnText,
         fn: this.setBtnText.bind(this)
       }
     };

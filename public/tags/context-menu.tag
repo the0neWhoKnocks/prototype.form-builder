@@ -53,6 +53,18 @@
     this.xPos = 0;
     this.yPos = 0;
     
+    function cloneObject(obj) {
+      if (obj === null || typeof obj !== 'object') return obj;
+   
+      var temp = obj.constructor();
+      
+      for (var key in obj) {
+        temp[key] = cloneObject(obj[key]);
+      }
+   
+      return temp;
+    }
+    
     this.handleContextItemClick = function(ev){
       var opts = _self.contextItems[ev.target.dataset.ndx].opts;
       
@@ -81,7 +93,7 @@
       Object.keys(data.items).forEach(function(label){
         menu.push({
           label: label,
-          opts: data.items[label]
+          opts: cloneObject(data.items[label])
         });
       });
       
@@ -98,6 +110,6 @@
       _self.update();
     };
     
-    RiotControl.on('openContextMenu', this.handleContextMenuOpen.bind(this));
+    RiotControl.on('openContextMenu', this.handleContextMenuOpen.bind(_self));
   </script>
 </context-menu>

@@ -2,9 +2,12 @@
   <nav
     class="top-nav"
   >
-    <button>Clear</button>
-    <button>Load</button>
-    <button>Save</button>
+    <button 
+      disabled={ !items.length }
+      onclick={ clearFormItems }
+    >Clear</button>
+    <button disabled>Load</button>
+    <button disabled>Save</button>
   </nav>
   <!-- TODO - possibly allow dropping a json file here to load. -->
   <div 
@@ -14,11 +17,12 @@
     ondragleave={ handleDragLeave }
     ondrop={ handleDrop }
   >
-    <ul class="list">
-      <li each={ item in items }>
-        <form-item ctx="{ item }" />
-      </li>
-    </ul>
+    <div 
+      each={ item in items }
+      class="item" 
+    >
+      <form-item ctx="{ item }" />
+    </div>
   </div>
   
   <style scoped>
@@ -32,6 +36,10 @@
     
     button {
       cursor: pointer;
+    }
+    button:disabled {
+      cursor: default;
+      opacity: 0.5;
     }
     
     .top-nav {
@@ -70,10 +78,8 @@
       content: none;
     }
     
-    .list {
-      list-style: none;
-      padding: 0;
-      margin: 0;
+    .item {
+      display: inline-block;
     }
   </style>
   
@@ -110,6 +116,10 @@
       el.classList.remove('drop-it');
       
       this.items.push(itemData);
+    };
+    
+    this.clearFormItems = function(ev){
+      this.items = [];
     };
   </script>
 </formBuilder>

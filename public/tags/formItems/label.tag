@@ -21,6 +21,8 @@
   </style>
   
   <script>
+    var _self = this;
+    
     this.layouts = {
       TOP: 'top',
       LEFT: 'left',
@@ -32,17 +34,26 @@
     
     this.setLabel = function(data){
       if( data ){
-        this.label = data.label;
-        this.update();
+        _self.label = data.label;
+        _self.update();
       }
     };
+    
+    this.getLabel = function(){
+      return _self.label;
+    };
+    
+    // fires when the tag is nested & opts are changed
+    this.on('update', function(ev){
+      _self.update(opts);
+    });
     
     this.configurable = {
       "Change Label": {
         type: 'text',
         name: 'label',
-        val: this.label,
-        fn: this.setLabel.bind(this)
+        val: this.getLabel,
+        fn: this.setLabel.bind(_self)
       }
     };
   </script>
