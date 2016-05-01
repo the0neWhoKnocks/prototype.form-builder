@@ -17,12 +17,10 @@
     ondragleave={ handleDragLeave }
     ondrop={ handleDrop }
   >
-    <div 
+    <form-item
       each={ item in items }
-      class="item" 
-    >
-      <form-item ctx="{ item }" />
-    </div>
+      ctx="{ item }"
+    />
   </div>
   
   <style scoped>
@@ -78,8 +76,12 @@
       content: none;
     }
     
-    .item {
+    form-item {
       display: inline-block;
+    }
+    
+    [data-is="container-item"] {
+      display: block;
     }
   </style>
   

@@ -6,14 +6,14 @@
       autocomplete="off" 
       onsubmit={ handleSubmit }
     >
-      <input if={ opts.type == 'text' } name={ opts.name } type="text" value={ opts.val } />
+      <input if={ opts.type == 'text' } name={ opts.name } type="text" value={ opts.val }>
       <div if={ opts.type == 'keyValue' }>
         <nav class="config-modal__key-val-nav">
           <input 
             type="number" 
             class="config-modal__add-count js-addCount" 
             value="1" 
-          />
+          >
           <button 
             type="button"
             class="config-modal__add-btn"
@@ -31,12 +31,24 @@
             name="node[{ nodeCount }][{ key }]" 
             value={ val }
             placeholder={ key }
-          />
+          >
           <button 
             type="button"
             class="config-modal__delete-btn"
             onclick={ handleDeleteNodeClick }
           >Delete</button>
+        </div>
+      </div>
+      <div if={ opts.type == 'radio' }>
+        <div each={ rad, key in opts.val }>
+          <label class="config-modal__radio-label">
+            <input 
+              type="radio" 
+              name={ parent.opts.name }
+              value={ rad.value }
+              checked={ rad.checked }
+            >{ rad.text }
+          </label>
         </div>
       </div>
       <button class="config-modal__update-btn">Update</button>
@@ -110,6 +122,19 @@
     .config-modal__add-btn,
     .config-modal__delete-btn {
       width: 82px;
+    }
+    
+    .config-modal__radio-label {
+      text-transform: capitalize;
+      margin-bottom: 0.5em;
+      display: block;
+    }
+    
+    .config-modal__radio-label > input {
+      width: 1em;
+      height: 1em;
+      margin-right: 0.5em;
+      vertical-align: top;
     }
     
     .config-modal__update-btn {

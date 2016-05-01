@@ -38,6 +38,7 @@
       padding: 0.5em 1em;
       border: none;
       background: transparent;
+      display: block;
       cursor: default;
     }
     .context-menu__btn:hover {

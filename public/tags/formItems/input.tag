@@ -73,19 +73,50 @@
       return _self.name;
     };
     
+    this.setPosition = function(data){
+      if( data ){
+        _self.labelPos = _self.labelPositions[data.position];
+        _self.update();
+      }
+    };
+    
+    this.getPositions = function(){
+      var positions = [];
+      
+      for(var i in _self.labelPositions){
+        var pos = _self.labelPositions[i];
+        var obj = {
+          value: i,
+          text: pos
+        };
+        
+        if( pos == _self.labelPos ) obj.checked = true;
+        
+        positions.push( obj );
+      };
+      
+      return positions;
+    };
+    
     // fires when the tag is nested & opts are changed
     this.on('update', function(ev){
       _self.update(opts);
     });
     
     this.configurable = {
-      "Change Label": {
+      "Change Label Text": {
         type: 'text',
         name: 'label',
         val: this.getLabel,
         fn: this.setLabel.bind(_self)
       },
-      "Change Name": {
+      "Change Label Position": {
+        type: 'radio',
+        name: 'position',
+        val: this.getPositions,
+        fn: this.setPosition.bind(_self)
+      },
+      "Change Name Attribute": {
         type: 'text',
         name: 'name',
         val: this.getName,
