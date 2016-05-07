@@ -21,7 +21,7 @@ gulp.task('app', [], function(){
         './public/tags/**/*.tag'
       ],
       {
-        events: ['add', 'change'],
+        events: ['add', 'change', 'unlink'],
         name: '[Riot compile]'
       },
       function(file){

@@ -6,7 +6,10 @@
       disabled={ !items.length }
       onclick={ clearFormItems }
     >Clear</button>
-    <button disabled>Load</button>
+    <button 
+      <!--disabled-->
+      onclick={ handleLoad }
+    >Load</button>
     <button disabled>Save</button>
   </nav>
   <!-- TODO - possibly allow dropping a json file here to load. -->
@@ -132,6 +135,15 @@
         itemData.tag = itemData.itemType +'-item';
         this.items.push(itemData);
       }
+    };
+    
+    this.handleLoad = function(ev){
+      RiotControl.trigger('openModal', {
+        modalBody: '<input type="file" name="load" accept=".json">',
+        onSave: function(ev){
+          console.log('save');
+        }
+      });
     };
     
     this.clearFormItems = function(ev){
