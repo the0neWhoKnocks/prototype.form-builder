@@ -35,7 +35,7 @@
         type: 'text',
         name: 'label',
         val: this.getBtnText,
-        fn: this.setBtnText.bind(this)
+        onSave: this.setBtnText.bind(this)
       }
     };
   </script>

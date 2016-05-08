@@ -7,9 +7,10 @@
       onsubmit={ handleSubmit }
     >
       <div id="modalFormBody"></div>
-      <nav>
+      <nav class="modal__btm-nav">
         <button 
           class="modal__cancel-btn"
+          type="button"
           onclick={ handleModalClose }
         >{ cancelBtnText }</button>
         <button 
@@ -73,10 +74,21 @@
       cursor: pointer;
     }
     
+    .modal__btm-nav {
+      margin-top: 0.5em;
+    }
+    
+    /* removes whitespace */
+    .modal__btm-nav * {
+      margin-left: -0.3em;
+    }
+    .modal__btm-nav *:first-child {
+      margin-left: 0;
+    }
+    
     .modal__cancel-btn,
     .modal__submit-btn {
-      width: 49%;
-      margin-top: 0.5em;
+      width: 50%;
       display: inline-block;
     }
   </style>
@@ -89,6 +101,7 @@
     this.cancelBtnText = opts.cancelBtnText || 'Cancel';
     this.submitBtnText = opts.submitBtnText || 'Submit';
     this.showModal = false;
+    this.onSave = function(){};
     this.modalOpts = {};
     this.mountedTags = [];
     
@@ -153,9 +166,7 @@
     };
     
     this.handleSubmit = function(ev){
-      if( _self.modalOpts.onSave ){
-        _self.modalOpts.onSave( _self.formToData(_self.modalForm) );
-      }
+      _self.onSave( _self.formToData(_self.modalForm) );
       
       _self.handleModalClose();
     };
@@ -167,6 +178,14 @@
      *   modalBody: '<tag-name id="fu" prop="val" /><input type="text" value="fu">',
      *   tags: ['#fu'],
      *   onSave: function(ev){...}
+     * }
+     *
+     * @example
+     * {
+     *   modalBody: '<tag-name id="fu" />',
+     *   tags: {
+     *     '#fu': data
+     *   }
      * }
      */
     RiotControl.on('openModal', function(data){
@@ -184,8 +203,16 @@
       
       // mount any tags (by Id) within the `modalBody`
       if( data.tags ){
+        var isArray = Array.isArray(data.tags);
+        
         for(var i in data.tags){
-          _self.mountedTags.push(riot.mount(data.tags[i])[0]);
+          var tag;
+          
+          tag = ( isArray )
+            ? riot.mount(data.tags[i])[0]
+            : riot.mount(i, data.tags[i])[0];
+          
+          _self.mountedTags.push(tag);
         }
       }
       

@@ -79,19 +79,19 @@
         type: 'text',
         name: 'label',
         val: this.getLabel,
-        fn: this.setLabel.bind(_self)
+        onSave: this.setLabel.bind(_self)
       },
       "Change Name": {
         type: 'text',
         name: 'name',
         val: this.getName,
-        fn: this.setName.bind(_self)
+        onSave: this.setName.bind(_self)
       },
       "Change Options": {
         type: 'keyValue',
         name: 'options',
         val: this.getOptions,
-        fn: this.setOptions.bind(_self)
+        onSave: this.setOptions.bind(_self)
       }
     };
   </script>

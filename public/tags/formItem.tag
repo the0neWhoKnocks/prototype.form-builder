@@ -14,7 +14,13 @@
     };
     
     RiotControl.on('contextItemSelected', function(data){
-      RiotControl.trigger('openConfigModal', data);
+      RiotControl.trigger('openModal', {
+        modalBody: '<form-item-config id="formItemConfig"></form-item-config>',
+        tags: {
+          '#formItemConfig': data
+        },
+        onSave: data.onSave
+      });
     });
     
     riot.mount(this.root, opts.ctx.tag, opts.ctx);

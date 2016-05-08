@@ -108,19 +108,19 @@
         type: 'text',
         name: 'label',
         val: this.getLabel,
-        fn: this.setLabel.bind(_self)
+        onSave: this.setLabel.bind(_self)
       },
       "Change Label Position": {
         type: 'radio',
         name: 'position',
         val: this.getPositions,
-        fn: this.setPosition.bind(_self)
+        onSave: this.setPosition.bind(_self)
       },
       "Change Name Attribute": {
         type: 'text',
         name: 'name',
         val: this.getName,
-        fn: this.setName.bind(_self)
+        onSave: this.setName.bind(_self)
       }
     };
   </script>
